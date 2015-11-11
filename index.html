@@ -1,0 +1,63 @@
+<!--
+   index.html
+-->
+<!DOCTYPE html>
+<html ng-app="helloApp">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hello World</title>
+
+        <meta name="author" content="Fabio Costa">
+        <meta name="robots" content="none">
+        <meta name="googlebot" content="none">
+
+        <link rel="stylesheet" href="css/app.css">
+
+        <script src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+        <script src="//www.gstatic.com/cast/sdk/libs/mediaplayer/1.0.0/media_player.js"></script>
+
+        <!-- Lib -->
+        <script src="scripts/lib/angular.min.js"></script>
+        <script src="scripts/lib/angular-ui-router.min.js"></script>
+
+        <!-- App -->
+        <script src="scripts/app.js"></script>
+
+        <!-- Constants -->
+        <script src="scripts/constants/appConstant.js"></script>
+
+        <!-- Directives -->
+        <script src="scripts/directives/mediaPlayer.js"></script>
+
+        <!-- Factories -->
+        <script src="scripts/services/cast/videoElementService.js"></script>
+        <script src="scripts/services/cast/castReceiverManagerService.js"></script>
+        <script src="scripts/services/cast/messageBusService.js"></script>
+        <script src="scripts/services/cast/mediaManagerService.js"></script>
+        <script src="scripts/services/media/mediaProtocolFactory.js"></script>
+        <script src="scripts/services/media/mediaPlayerFactory.js"></script>
+        <script src="scripts/services/media/mediaHostFactory.js"></script>
+
+        <!-- Controllers -->
+        <script src="scripts/controllers/appController.js"></script>
+        <script src="scripts/controllers/splashController.js"></script>
+        <script src="scripts/controllers/homeController.js"></script>
+        <script src="scripts/controllers/playerController.js"></script>
+
+    </head>
+
+    <body ng-controller="appController">
+
+        <div ng-show="model.displayDebugInfo">
+
+            <!--add debug info here-->
+
+            version: {{ ::model.version}}
+
+        </div>
+
+        <div ui-view></div>
+
+    </body>
+</html>
