@@ -13,8 +13,7 @@
 
         var model = {
 
-            title: "Hello World",
-            desc: "This is the splash screen",
+            title: "Loading...",
 
             version: null
         };
@@ -23,7 +22,7 @@
 
             $state.go("home");
 
-        }, 2000);
+        }, 3000);
 
         $scope.$on("$destroy", function () {
 

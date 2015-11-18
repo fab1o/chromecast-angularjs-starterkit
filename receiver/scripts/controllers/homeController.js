@@ -13,7 +13,7 @@
 
         var model = {
 
-            title: "Hello World!"
+            title: "Read to Cast"
 
         };
 

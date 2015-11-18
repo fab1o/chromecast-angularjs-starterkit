@@ -7,36 +7,36 @@
 
     var serviceId = "mediaHostFactory";
 
-    app.factory(serviceId,
-        ["cast", "$rootScope", "castReceiverManagerService", "$state", "messageBusService", "videoElementService", mediaHostFactory]);
+    app.factory(serviceId, ["cast", "$state", "messageBusService", "videoElementService", mediaHostFactory]);
 
-    function mediaHostFactory(cast, $rootScope, castReceiverManagerService, $state, messageBusService, videoElementService) {
+    function mediaHostFactory(cast, $state, messageBusService, videoElementService) {
 
         return {
             MediaHost: MediaHost
         };
 
-        function MediaHost(url) {
+        function MediaHost(url, licenseUrl, customData) {
 
-            console.log("MediaHost url: " + url);
+            licenseUrl = null || licenseUrl;
+            customData = null || customData;
+
+            console.log("MediaHost url: " + url + " & licenseUrl: " + licenseUrl);
 
             var mediaHost = new cast.player.api.Host({
                 mediaElement: videoElementService.videoElement,
                 url: url,
-                licenseUrl: null
+                licenseUrl: licenseUrl,
+                licenseCustomData: customData
             });
 
             mediaHost.onError = function (errorCode) {
 
-                console.error('mediaHost.onError - errorCode: ' + errorCode);
-                castReceiverManagerService.manager.setApplicationState("");
+                console.error("mediaHost.onError - errorCode: " + errorCode);
 
                 messageBusService.messageBus.broadcast(JSON.stringify({
                     type: "cancel"
                     //,senderId: params.senderId //optional: for multiple senders
                 }));
-
-                $rootScope.$broadcast("$loadingCompleted");
 
                 $state.go("home");
             };

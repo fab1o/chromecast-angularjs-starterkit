@@ -7,11 +7,10 @@
 
     var serviceId = "mediaManagerService";
 
-    app.service(serviceId,
-        ["cast", "$state", "$rootScope", "castReceiverManagerService", "videoElementService",
-            "mediaPlayerFactory", "mediaHostFactory", "mediaProtocolFactory", mediaManagerService]);
+    app.service(serviceId, ["cast", "$state", "videoElementService", "mediaPlayerFactory", "mediaHostFactory",
+        "mediaProtocolFactory", mediaManagerService]);
 
-    function mediaManagerService(cast, $state, $rootScope, castReceiverManagerService, videoElementService,
+    function mediaManagerService(cast, $state, videoElementService,
                                  mediaPlayerFactory, mediaHostFactory, mediaProtocolFactory) {
 
         this.mediaManager = null;
@@ -69,8 +68,6 @@
 
                 console.log("$state.go(\"player\") from mediaManager.onMetadataLoaded");
 
-                $rootScope.$broadcast("$loadingEnd");
-
                 $state.go("player");
             };
 
@@ -109,14 +106,12 @@
 
                 console.log("mediaManager.onLoad");
 
-                $rootScope.$broadcast("$loadingBegin");
-
                 var resumePoint = 0;
 
                 if (e.data.customData)
                     resumePoint = e.data.customData.resumePoint || 0;
 
-                var mediaHost = new mediaHostFactory.MediaHost(e.data.media.contentId, resumePoint);
+                var mediaHost = new mediaHostFactory.MediaHost(e.data.media.contentId, e.data.customData.licenseUrl, e.data.customData.licenseCustomData, resumePoint);
 
                 var mediaProtocol = new mediaProtocolFactory.MediaProtocol(mediaHost);
 
@@ -131,11 +126,7 @@
                     msg: ""
                 };
 
-            castReceiverManagerService.manager.setApplicationState("");
-
             console.log(options.msg);
-
-            $rootScope.$broadcast("$loadingReset");
 
             $state.go("home");
         }

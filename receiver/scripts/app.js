@@ -32,9 +32,9 @@ var app = (function () {
 
     }]);
 
-    app.run(["messageBusService", "mediaManagerService", run]);
+    app.run(["$state", "messageBusService", "mediaManagerService", run]);
 
-    function run(messageBusService, mediaManagerService) {
+    function run($state, messageBusService, mediaManagerService) {
 
         messageBusService.init();
         mediaManagerService.init();
